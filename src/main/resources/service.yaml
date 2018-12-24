@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reqres
+  labels:
+    app: reqres
+spec:
+  ports:
+   - port: 8080
+     name: http
+  selector:
+   app: reqres
+   version: v1

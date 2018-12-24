@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: reqres
+    version: v1
+  name: reqres-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: reqres
+        version: v1
+    spec:
+      containers:
+        - name: reqres
+          image: lordofthejars/reqres-app:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8080
