@@ -6,9 +6,7 @@ import org.junit.runner.RunWith;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Get;
 import net.thucydides.core.util.EnvironmentVariables;
 
 import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
@@ -16,7 +14,7 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.equalTo;
 
 @RunWith(SerenityRunner.class)
-public class WhenManagingUsers {
+public class WhenSecurityServiceNeedsUsersInformation {
 
     private String theRestApiBaseUrl;
     private EnvironmentVariables environmentVariables;
@@ -34,7 +32,7 @@ public class WhenManagingUsers {
     @Test
     public void list_all_users() {
         securityService.attemptsTo(
-            listAllUsers()
+            UserTasks.listAllUsers()
         );
 
         securityService.should(
@@ -56,12 +54,6 @@ public class WhenManagingUsers {
                                             .body("data.first_name", equalTo("George"))
                                             .body("data.last_name", equalTo("Bluth"))
                 )
-        );
-    }
-
-    public Task listAllUsers() {
-        return Task.where("{0} lists all users",
-                Get.resource("/users")
         );
     }
 
