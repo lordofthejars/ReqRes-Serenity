@@ -20,7 +20,7 @@ public class WhenManagingUsers {
 
     private String theRestApiBaseUrl;
     private EnvironmentVariables environmentVariables;
-    private Actor sam;
+    private Actor securityService;
 
 
     @Before
@@ -28,16 +28,16 @@ public class WhenManagingUsers {
         theRestApiBaseUrl = environmentVariables.optionalProperty("restapi.baseurl")
                                                    .orElseThrow(IllegalArgumentException::new);
 
-        sam = Actor.named("Sam the supervisor").whoCan(CallAnApi.at(theRestApiBaseUrl));
+        securityService = Actor.named("Security service").whoCan(CallAnApi.at(theRestApiBaseUrl));
     }
 
     @Test
     public void list_all_users() {
-        sam.attemptsTo(
+        securityService.attemptsTo(
             listAllUsers()
         );
 
-        sam.should(
+        securityService.should(
                 seeThatResponse("all the expected users should be returned",
                         response -> response.statusCode(200)
                                             .body("data.first_name", hasItems("George", "Janet", "Emma")))
@@ -46,11 +46,11 @@ public class WhenManagingUsers {
 
     @Test
     public void find_an_individual_user() {
-        sam.attemptsTo(
+        securityService.attemptsTo(
             FindAUser.withId(1)
         );
 
-        sam.should(
+        securityService.should(
                 seeThatResponse( "User details should be correct",
                         response -> response.statusCode(200)
                                             .body("data.first_name", equalTo("George"))
