@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: reqrestest
+spec:
+  template:         
+    metadata:
+      name: reqrestest
+    spec:
+      containers:
+      - name: reqrestest
+        image: lordofthejars/runtest
+        env:
+        - name: repo
+          value: https://github.com/lordofthejars/ReqRes-Serenity.git
+        - name: goal
+          value: clean verify -Pservice
+      restartPolicy: Never

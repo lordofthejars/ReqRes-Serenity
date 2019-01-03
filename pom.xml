@@ -46,6 +46,12 @@
         </properties>
     </profile>
     <profile>
+        <id>service</id>
+        <properties>
+            <restapi.baseurl>http://reqresservicetest:8080/api</restapi.baseurl>
+        </properties>
+    </profile>
+    <profile>
         <id>demo</id>
         <properties>
             <restapi.baseurl>https://reqres.in/api</restapi.baseurl>
